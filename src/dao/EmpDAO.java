@@ -75,6 +75,10 @@ public class EmpDAO {
         } catch (Exception e) {
             System.out.println("INSERT 실패 !!!!");
             return false;
+        } finally {
+            Common.close(rs);
+            Common.close(stmt);
+            Common.close(conn);
         }
     }
 
