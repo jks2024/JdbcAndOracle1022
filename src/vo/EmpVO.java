@@ -1,8 +1,7 @@
 package vo;
 
 import java.math.BigDecimal;
-import java.util.Date;
-
+import java.sql.Date;
 // VO(Value Object) : 데이터베이스에서 가져온 레코드(튜플)를 자바 객체로 매핑하는데 사용
 // VO객체는 데이터베이스 데이블의 각 컬럼에 해당하는 멤버변수(인스턴스 필드)를 만듬
 // 일반적으로 데이터베이스 테이블의 레코드 한행을 객체로 매핑하기 위해 사용
