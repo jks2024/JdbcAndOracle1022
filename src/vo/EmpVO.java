@@ -28,6 +28,13 @@ public class EmpVO {
     }
     public EmpVO() {}
 
+    public EmpVO(String name, String job, BigDecimal sal, BigDecimal comm) {
+        this.name = name;
+        this.job = job;
+        this.sal = sal;
+        this.comm = comm;
+    }
+
     public int getEmpNO() {
         return empNO;
     }

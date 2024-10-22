@@ -76,14 +76,49 @@ public class EmpDAO {
             System.out.println("INSERT 실패 !!!!");
             return false;
         } finally {
-            Common.close(rs);
-            Common.close(stmt);
+            Common.close(psmt);
+            Common.close(conn);
+        }
+    }
+    // UPDATE 구현
+    public boolean empUpdate(EmpVO vo) {
+        String sql = "UPDATE EMP SET JOB = ?, SAL = ?, COMM = ? WHERE ENAME = ?";
+        try {
+            conn = Common.getConnection();
+            psmt = conn.prepareStatement(sql);
+            psmt.setString(1, vo.getJob());
+            psmt.setBigDecimal(2, vo.getSal());
+            psmt.setBigDecimal(3, vo.getComm());
+            psmt.setString(4, vo.getName());
+            psmt.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            System.out.println("Update 실패 !!!!");
+            return false;
+        } finally {
+            Common.close(psmt);
             Common.close(conn);
         }
     }
 
+    // DELETE 구현
+    public boolean empDelete(String name) {
+        String sql = "DELETE FROM EMP WHERE ENAME = ?";
+        try {
+            conn = Common.getConnection();
+            psmt = conn.prepareStatement(sql);
+            psmt.setString(1, name);
+            psmt.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            System.out.println("Delete 실패 !!!!");
+            return false;
+        } finally {
+            Common.close(psmt);
+            Common.close(conn);
+        }
 
-
+    }
 
 
     public void empSelectResult(List<EmpVO> list) {

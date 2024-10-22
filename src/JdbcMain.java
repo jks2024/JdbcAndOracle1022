@@ -19,23 +19,32 @@ public class JdbcMain {
             System.out.println("메뉴를 선택 하세요 : ");
             System.out.print("[1]SELECT [2]INSERT [3]UPDATE [4]DELETE [5]EXIT : ");
             int choice = sc.nextInt();
+            boolean isSuccess = false;
             switch (choice) {
                 case 1:
                     List<EmpVO> list = dao.empSelect();
                     dao.empSelectResult(list);
                     break;
                 case 2:
-                    boolean isSuccess = dao.empInsert(empInput());
+                    isSuccess = dao.empInsert(empInput());
                     if(isSuccess) System.out.println("사원 등록에 성공 했습니다.");
                     else System.out.println("사원 등록에 실패 했습니다.");
+                    break;
+                case 3:
+                    isSuccess = dao.empUpdate(empUpdateInput());
+                    if(isSuccess) System.out.println("사원 정보 수정에 성공 했습니다.");
+                    else System.out.println("사원 정보 수정에 실패 했습니다.");
+                    break;
+                case 4:
+                    isSuccess = dao.empDelete(empDeleteInput());
+                    if(isSuccess) System.out.println("사원 삭제에 성공 했습니다.");
+                    else System.out.println("사원 삭제에 실패 했습니다.");
                     break;
                 case 5:
                     System.out.println("프로그램을 종료 합니다.");
                     return;
             }
         }
-
-
     }
 
     public static EmpVO empInput() {
@@ -59,6 +68,23 @@ public class JdbcMain {
         System.out.print("부서번호 : ");
         int deptNo = sc.nextInt();
         return new EmpVO(empNo, name, job, mgr, Date.valueOf(date), sal, comm, deptNo);
+    }
+    public static EmpVO empUpdateInput() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("변경할 사원의 이름을 입력 하세요 : ");
+        String name = sc.next();
+        System.out.print("직책 : ");
+        String job = sc.next();
+        System.out.print("급여 : " );
+        BigDecimal sal = sc.nextBigDecimal();
+        System.out.print("성과급 : " );
+        BigDecimal comm = sc.nextBigDecimal();
+        return new EmpVO(name, job, sal, comm);
+    }
+    public static String empDeleteInput() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("삭제할 이름을 입력 하세요 : ");
+        return sc.next();
     }
 
 }
